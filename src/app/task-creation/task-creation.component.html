@@ -1,0 +1,58 @@
+<div class="go-back-container">
+  <a [routerLink]="['/tasks']">
+    Task List
+  </a> &gt; Task Creation
+</div>
+
+<div class="form-container">
+  <form [formGroup]="taskForm" (submit)="onSubmit()">
+    <div>
+      <label for="name">Name:</label>
+      <input id="name" type="text" formControlName="name" required />
+    </div>
+    <div>
+      <label for="description">Description:</label>
+      <input
+        id="description"
+        type="text"
+        formControlName="description"
+        required
+      />
+    </div>
+    <div>
+      <label for="timeUnit">Time Unit:</label>
+      <p class="form-note">Select how often the Task should be running.</p>
+      <p class="form-note">"Seconds: 2" will execute the task every 2 seconds</p>
+      <select
+        id="timeUnit"
+        formControlName="timeUnit"
+        (change)="onTimeUnitChange(taskForm.get('timeUnit')!.value)"
+      >
+        <option value="" disabled selected>Select Time Unit</option>
+        <option *ngFor="let unit of timeUnitOptions" [value]="unit">
+          {{ unit }}
+        </option>
+      </select>
+    </div>
+    <div>
+      <label for="value">Value:</label>
+      <select id="value" formControlName="value">
+        <option value="" disabled selected>Select Value</option>
+        <option *ngFor="let val of valueOptions" [value]="val">
+          {{ val }}
+        </option>
+      </select>
+    </div>
+
+    <div>
+      <label for="url">URL</label>
+      <p class="form-note">URL should start with http or https.</p>
+      <input
+        type="text"
+        formControlName="url"
+        placeholder="sample: https://www.google.com"
+      />      
+    </div>
+    <button type="submit" [disabled]="!taskForm.valid">Create Task</button>
+  </form>
+</div>

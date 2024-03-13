@@ -1,0 +1,24 @@
+<h2>Tasks</h2>
+
+<div *ngFor="let task of tasks">
+
+    <h3>
+      <a [title]="task.name + ' details'"
+      [routerLink]="['/tasks', task._id]">
+        {{ task.name }}
+      </a>
+    </h3>
+  
+    <p *ngIf="task.description">
+      Description: {{ task.description }}
+    </p>
+
+  </div>
+
+  <div *ngIf="errorLoadingTasksInfo">
+    <p>
+      Error Loading User Tasks
+    </p>
+  </div>
+
+  <button (click)="navigateToTaskCreation()" class="fab">+</button>

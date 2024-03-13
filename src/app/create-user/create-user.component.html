@@ -1,0 +1,28 @@
+<p>Please register so you can start scheduling tasks</p>
+<div *ngIf="!userExists(); else taskListRedirect">
+    <form [formGroup]="emailForm" (submit)="loginUser($event)">
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" formControlName="email">
+        <div *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+          <div *ngIf="email?.errors?.['required']">
+            Email is required.
+          </div>
+          <div *ngIf="email?.errors?.['pattern']">
+            Please enter a valid email address.
+          </div>          
+        </div>
+      </div>
+      <button type="submit" [disabled]="!emailForm.valid">Submit</button>
+    </form>
+  </div>
+
+  <div *ngIf="errorLoggingIn">
+    <p>
+      Failed to Log in. Please try again
+    </p>    
+  </div>
+
+  <ng-template #taskListRedirect>
+    <p>Welcome Back! Redirecting to task list...</p>
+  </ng-template>

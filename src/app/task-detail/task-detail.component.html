@@ -1,0 +1,50 @@
+<div class="go-back-container">
+  <a [routerLink]="['/tasks']">
+    Task List
+  </a> &gt; Task Detail
+</div>
+
+<div *ngIf="task">
+  <h3>{{ task.name }} <span *ngIf="task.type == 'WebScraper'">({{ task.data.url }})</span> </h3> 
+  <p>{{ task.description }}</p>
+  <div *ngIf="task.executionData.lastExecutionDate">
+    <p>Last Execution Time: {{ formatDate(task.executionData.lastExecutionDate) }}</p>
+  </div>
+  <div *ngIf="task.executionData.details">
+    <div *ngIf="task.type == 'RandomImage'">
+      <img [src]="task.executionData.details" alt="">
+    </div>
+    <div *ngIf="task.type == 'WebScraper'">
+      <p>Headers:</p>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let key of objectKeys(task.executionData.details)">
+              <td>{{ key }}</td>
+              <td>
+                <div *ngIf="isArray(task.executionData.details[key]); else normalValue">
+                  <ul>
+                    <li *ngFor="let item of task.executionData.details[key]">{{ item }}</li>
+                  </ul>
+                </div>
+                <ng-template #normalValue>{{ task.executionData.details[key] }}</ng-template>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>     
+    </div>
+  </div>
+</div>
+
+<div *ngIf="errorLoadingTaskInfo">
+  <p>
+    Error Loading the details of the task
+  </p>
+</div>

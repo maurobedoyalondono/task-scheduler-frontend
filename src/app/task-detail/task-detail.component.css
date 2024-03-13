@@ -1,0 +1,12 @@
+.table-container {
+    overflow-x: auto; /* Enable horizontal scrolling if necessary */
+  }
+  
+  .table-container table {
+    width: 100%;
+    table-layout: fixed; /* Fix table layout to ensure column width consistency */
+  }
+  
+  .table-container td {
+    word-wrap: break-word; /* Wrap long words */
+  }
